@@ -28,7 +28,6 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
-import { authClient } from '@/lib/auth-client'
 
 const formSchema = z.object({
   email: z.email(),
@@ -76,13 +75,6 @@ export function SignupForm({
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const signUp = async () => {
-    await authClient.signIn.social({
-      provider: 'google',
-      callbackURL: '/dashboard',
-    })
   }
 
   return (
@@ -173,14 +165,6 @@ export function SignupForm({
                     ) : (
                       'Sign up'
                     )}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={signUp}
-                    type="button"
-                  >
-                    Sign up with Google
                   </Button>
                 </div>
               </div>
