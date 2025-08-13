@@ -1,3 +1,5 @@
+import { cuid } from '@/lib/cuid2'
+import { relations, sql } from 'drizzle-orm'
 import {
   mysqlTable,
   varchar,
@@ -66,3 +68,51 @@ export const verification = mysqlTable('verification', {
     () => /* @__PURE__ */ new Date()
   ),
 })
+
+export const notebooks = mysqlTable('notebooks', {
+  id: varchar({ length: 36 })
+    .$defaultFn(() => cuid())
+    .primaryKey(),
+  name: text().notNull(),
+  userId: varchar({ length: 36 })
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  createdAt: timestamp().defaultNow().notNull(),
+  updatedAt: timestamp().defaultNow().onUpdateNow().notNull(),
+})
+
+export const notebookRelations = relations(notebooks, ({ many, one }) => ({
+  notes: many(notes),
+  user: one(user, {
+    fields: [notebooks.userId],
+    references: [user.id],
+  }),
+}))
+
+export type Notebook = typeof notebooks.$inferSelect & {
+  notes: Note[]
+}
+export type InsertNotebook = typeof notebooks.$inferInsert
+
+export const notes = mysqlTable('notes', {
+  id: varchar({ length: 36 })
+    .$defaultFn(() => cuid())
+    .primaryKey(),
+  title: varchar({ length: 36 }).notNull(),
+  content: text().notNull(),
+  notebookId: varchar({ length: 36 })
+    .notNull()
+    .references(() => notebooks.id, { onDelete: 'cascade' }),
+  createdAt: timestamp().defaultNow().notNull(),
+  updatedAt: timestamp().defaultNow().onUpdateNow().notNull(),
+})
+
+export const noteRelations = relations(notes, ({ one }) => ({
+  notebook: one(notebooks, {
+    fields: [notes.notebookId],
+    references: [notebooks.id],
+  }),
+}))
+
+export type Note = typeof notes.$inferSelect
+export type InsertNote = typeof notes.$inferInsert
