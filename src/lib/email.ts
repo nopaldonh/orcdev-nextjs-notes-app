@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 import { render, toPlainText } from '@react-email/components'
 import VerificationEmail from '@/components/emails/verification-email'
+import PasswordResetEmail from '@/components/emails/reset-email'
 
 async function createTransporter() {
   return nodemailer.createTransport(
@@ -56,6 +57,32 @@ export async function sendVerificationEmail(
     VerificationEmail({
       userName,
       verificationUrl: url,
+    })
+  )
+
+  const text = toPlainText(html)
+
+  await sendMail({
+    to: email,
+    subject,
+    html,
+    text,
+  })
+}
+
+export async function sendResetPasswordEmail(
+  userName: string,
+  email: string,
+  url: string,
+  requestTime: string
+) {
+  const subject = 'Reset your password'
+
+  const html = await render(
+    PasswordResetEmail({
+      userName,
+      resetUrl: url,
+      requestTime,
     })
   )
 
