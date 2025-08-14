@@ -1,4 +1,20 @@
+# Next.js Notes App
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Tutorial
+
+[Build & Deploy a Notes App | Next.js 15, React, Shadcn, Better Auth | Full Course 2025)](https://www.youtube.com/watch?v=oSe_HilcQmM)
+
+by [OrcDev](https://www.youtube.com/@orcdev)
+
+## Tech Stack
+
+- Next.js
+- MySQL (Instead of Neon)
+- Drizzle
+- shadcn/ui
+- Better Auth
 
 ## Getting Started
 
