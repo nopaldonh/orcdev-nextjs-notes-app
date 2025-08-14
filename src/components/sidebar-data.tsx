@@ -15,6 +15,7 @@ import {
 } from './ui/sidebar'
 import { ChevronRight, File } from 'lucide-react'
 import { useQueryState } from 'nuqs'
+import Link from 'next/link'
 
 interface SidebarDataProps {
   data: {
@@ -67,10 +68,10 @@ export function SidebarData({ data }: SidebarDataProps) {
                   {item.items.map((item) => (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <a href={item.url}>
+                        <Link href={item.url}>
                           <File />
                           {item.title}
-                        </a>
+                        </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}

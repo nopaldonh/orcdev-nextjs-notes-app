@@ -9,6 +9,7 @@ import { SidebarTrigger } from './ui/sidebar'
 import { Logout } from './logout'
 import { ModeToggle } from './mode-toggle'
 import { Fragment } from 'react'
+import Link from 'next/link'
 
 interface PageWrapperProps {
   children: React.ReactNode
@@ -31,8 +32,8 @@ export function PageWrapper({ children, breadcrumbs }: PageWrapperProps) {
                 {breadcrumbs.map((breadcrumb, index) => (
                   <Fragment key={breadcrumb.label}>
                     <BreadcrumbItem>
-                      <BreadcrumbLink href={breadcrumb.href}>
-                        {breadcrumb.label}
+                      <BreadcrumbLink asChild>
+                        <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
                       </BreadcrumbLink>
                     </BreadcrumbItem>
                     {index !== breadcrumbs.length - 1 && (
