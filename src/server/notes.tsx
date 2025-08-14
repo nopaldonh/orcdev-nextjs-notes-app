@@ -15,9 +15,14 @@ export const createNote = async (values: InsertNote) => {
 
 export const getNoteById = async (id: string) => {
   try {
-    const note = await db.select().from(notes).where(eq(notes.id, id))
+    const note = await db.query.notes.findFirst({
+      where: eq(notes.id, id),
+      with: {
+        notebook: true,
+      },
+    })
 
-    return { success: true, note: note[0] }
+    return { success: true, note }
   } catch {
     return { success: false, message: 'Failed to get notebook' }
   }
