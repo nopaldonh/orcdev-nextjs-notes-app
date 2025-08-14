@@ -1,4 +1,5 @@
 import { PageWrapper } from '@/components/page-wrapper'
+import RichTextEditor from '@/components/rich-text-editor'
 import { getNoteById } from '@/server/notes'
 
 type Params = Promise<{
@@ -18,6 +19,8 @@ export default async function NotePage({ params }: { params: Params }) {
       ]}
     >
       <h1>{note?.title}</h1>
+
+      <RichTextEditor content={note?.content} noteId={note?.id} />
     </PageWrapper>
   )
 }
