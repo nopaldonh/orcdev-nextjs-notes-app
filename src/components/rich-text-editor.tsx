@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  useEditor,
-  EditorContent,
-  useEditorState,
-  type JSONContent,
-} from '@tiptap/react'
+import { useEditor, EditorContent, useEditorState } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
